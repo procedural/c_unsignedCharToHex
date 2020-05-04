@@ -31,15 +31,32 @@ static inline void unsignedCharToHex(unsigned char v, char * h0, char * h1) {
   h1[0] = hex[1];
 }
 
+static inline void hexToUnsignedChar(char h0, char h1, unsigned char * v) {
+  v[0] = ((h0 > 64) ? (h0 - 55) : (h0 - 48)) * 16 + ((h1 > 64) ? (h1 - 55) : (h1 - 48));
+}
+
 int main() {
 //  generateHexTable();
 
-  unsigned char v = 10;
+  {
+    unsigned char v = 10;
 
-  char h0 = 0;
-  char h1 = 0;
-  unsignedCharToHex(v, &h0, &h1);
+    char h0 = 0;
+    char h1 = 0;
+    unsignedCharToHex(v, &h0, &h1);
 
-  printf("0x%c%c\n", h0, h1);
-  fflush(stdout);
+    printf("0x%c%c\n", h0, h1);
+    fflush(stdout);
+  }
+
+  {
+    char h0 = '0';
+    char h1 = 'A';
+
+    unsigned char v = 0;
+    hexToUnsignedChar(h0, h1, &v);
+
+    printf("%d\n", v);
+    fflush(stdout);
+  }
 }
